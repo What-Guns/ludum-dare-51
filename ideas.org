@@ -1,0 +1,60 @@
+* Every 10 Seconds
+** Frantic, like Wario Ware
+** World's worst Horde Mode
+*** You're in a maze
+**** You have to complete an objective
+**** Keep your paths clear
+**** You can't see the whole maze
+**** Every 10 Seconds, something spawns
+** A time warp where you have 10 seconds to do as much as possible
+** Into the Breach x Necrodancer
+*** Like a timed chess game
+*** Do something on the beat
+** Diner Dash, every 10 seconds someone comes into the restaurant
+** City Builder where every 10 seconds is 100 years
+** You're a farmer, every 10 seconds a crop grows
+** Running a nuclear plant, e10s you have to vent something
+*** Like Keep Talking and Nobody Explodes
+** Every 10 seconds a child goes hungry
+*** Every 10 seconds there is a woman giving birth to a child, she must be found and stopped - Sam Levinson
+** You are taking a driving test and e10s the instructor reaches over and jerks the wheel
+** Navigate away from a storm based on the timing between thunder and lightning
+
+* Home Intruder Game
+** Description
+*** Home invader, e10s illuminated by the lightning
+**** A zombie or something else has broken into your house
+**** You have a broken leg (left leg!) so you move slowly, but can still drive a car
+**** You need to get your car keys and escape the house
+**** If you're in a room with windows, lightning will flash
+***** If you're out in the open when this happens, the intruder will be able to see you
+***** If you get spotted, the intruder will move towards your last known location
+** Requirements
+*** Design
+**** Layout of the house
+**** Positions of the player start, the keys, and the car
+**** Safe spaces where the intruder can't see you at all
+*** Implementation
+**** 2d Top-Down engine
+***** Laid out using the Tiled editor
+***** Character controlled with keyboard
+***** AI enemy
+****** Pathfinding
+****** Ability to target and move towards a point
+****** Ability to patrol randomly
+***** Clear visual indication of where the safe areas are
+***** Multiple rooms
+***** Audio and images
+*** Illustration
+**** Tileset for a house
+***** Including alternate versions of the tiles illuminated by lightning
+***** Objects within the house
+**** Player character
+***** 4-directional movement
+***** Possible crouching
+**** Enemy
+***** 4-directional movement
+*** Audio
+**** Thunder noise
+**** Sting to indicate that you've been spotted
+**** Background audio (either rain or a tense BGM)
