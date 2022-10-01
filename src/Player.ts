@@ -12,16 +12,21 @@ export default class Player implements Actor {
     acceleration = 1;
     deceleration = 0.92;
     maximumVelocity = 10;
+    holdingActionKey = false;
+    pressedActionKey = false;
+    message = "";
 
     constructor(readonly game: Game) {
         this.rect = new Rect(this.x, this.y, this.width, this.height);
     }
 
     tick(_dt: number) {
+        this.message = "";
         this.processInput();
         this.clampVelocity();
         this.updatePosition();
         this.checkForWallCollisions();
+        this.checkForDoors();
         this.decelerate();
     }
 
@@ -37,7 +42,17 @@ export default class Player implements Actor {
         const collidingWalls = walls.filter(wall => wall.rect.collides(this.rect));
         if (collidingWalls.length == 0) return;
         collidingWalls.forEach(wall => this.resolveCollision(wall.rect));
+    }
 
+    checkForDoors() {
+        const doors = this.game.currentRoom?.doors || [];
+        const activeDoors = doors.filter(door => door.rect.contains(this.rect.center[0], this.rect.center[1]));
+        if (activeDoors.length == 0) return;
+        const destination = (activeDoors[0].props as Array<any>).find(p => p.name == "destination").value;
+        this.message = `Go to ${destination}`;
+        if (this.pressedActionKey) {
+            console.log(activeDoors[0].props);
+        }
     }
 
     resolveCollision(rect: Rect) {
@@ -64,10 +79,15 @@ export default class Player implements Actor {
     }
 
     processInput() {
+        this.pressedActionKey = false;
         if (isControlPressed(Controls.RIGHT)) { this.velocity[0] += this.acceleration; }
         if (isControlPressed(Controls.LEFT)) { this.velocity[0] -= this.acceleration; }
         if (isControlPressed(Controls.UP)) { this.velocity[1] -= this.acceleration; }
         if (isControlPressed(Controls.DOWN)) { this.velocity[1] += this.acceleration; }
+        if (isControlPressed(Controls.ACTION)) {
+            if (!this.holdingActionKey) this.pressedActionKey = true;
+            this.holdingActionKey = true;
+        } else this.holdingActionKey = false;
     }
 
     clampVelocity() {
@@ -80,8 +100,6 @@ export default class Player implements Actor {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.rect.x / 4, this.rect.y / 4, this.rect.w / 4, this.rect.h / 4);
 
         ctx.fillStyle = 'red';
         //const positionIsometric = [this.x - (this.y * (86 / 50)), this.y + (this.x / (86 / 50))];
@@ -92,6 +110,15 @@ export default class Player implements Actor {
         const isoY = (this.x) + (this.y) - 119;
         //ctx.fillRect((positionIsometric[0] + (window as any).offsetX), (positionIsometric[1] + (window as any).offsetY), 50, 150);
         ctx.fillRect(isoX / 4 - 25, isoY / 4 - 150, 50, 150);
+        if (this.message !== "") {
+            ctx.fillStyle = 'white';
+            ctx.fillText(this.message, isoX / 4 - 25, isoY / 4 - 175);
+        }
+
+        if ((window as any).debug) {
+            ctx.fillStyle = 'green';
+            ctx.fillRect(this.rect.x / 4, this.rect.y / 4, this.rect.w / 4, this.rect.h / 4);
+        }
     }
 
     get x() { return this.position[0] }

@@ -3,6 +3,7 @@ enum Controls {
     DOWN,
     LEFT,
     RIGHT,
+    ACTION,
 }
 
 const keyboardMap: { [key: string]: Controls } = {
@@ -15,6 +16,8 @@ const keyboardMap: { [key: string]: Controls } = {
     w: Controls.UP,
     a: Controls.LEFT,
     d: Controls.RIGHT,
+
+    Enter: Controls.ACTION,
 };
 
 const controlMap = Object.keys(keyboardMap).reduce((acc: { [key in Controls]: Array<string> }, key: string) => {

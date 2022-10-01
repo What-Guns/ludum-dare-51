@@ -44,7 +44,7 @@
          "offsety":550,
          "opacity":0.53,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":18,
          "x":0,
          "y":0
@@ -52,7 +52,7 @@
         {
          "draworder":"topdown",
          "id":3,
-         "name":"Object Layer 1",
+         "name":"walls",
          "objects":[
                 {
                  "class":"",
@@ -133,12 +133,77 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
+         "visible":false,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":5,
+         "name":"doors",
+         "objects":[
+                {
+                 "class":"",
+                 "height":66.7358803986711,
+                 "id":11,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"kitchen"
+                        }, 
+                        {
+                         "name":"x",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"y",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":197.549833887043,
+                 "x":806.229235880399,
+                 "y":465.199335548173
+                }, 
+                {
+                 "class":"",
+                 "height":91.0714285714287,
+                 "id":12,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"upstairs"
+                        }, 
+                        {
+                         "name":"x",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"y",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":91.0714285714287,
+                 "x":656.104651162791,
+                 "y":1311.75249169435
+                }],
+         "opacity":1,
+         "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":11,
+ "nextlayerid":6,
+ "nextobjectid":15,
  "orientation":"isometric",
  "renderorder":"right-down",
  "tiledversion":"1.9.1",
