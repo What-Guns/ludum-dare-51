@@ -16,5 +16,10 @@
     "noFallthroughCasesInSwitch": true,
     "experimentalDecorators": true
   },
+  "exclude": [
+    "*.tsx",
+    "*.js",
+    "dist",
+  ],
   "rootDir": "./"
 }

@@ -111,17 +111,6 @@
                 }, 
                 {
                  "class":"",
-                 "height":0,
-                 "id":7,
-                 "name":"",
-                 "rotation":0,
-                 "visible":true,
-                 "width":0,
-                 "x":1686.17109634551,
-                 "y":560.257475083056
-                }, 
-                {
-                 "class":"",
                  "height":1342.2342192691,
                  "id":8,
                  "name":"",
@@ -149,7 +138,7 @@
          "y":0
         }],
  "nextlayerid":4,
- "nextobjectid":10,
+ "nextobjectid":11,
  "orientation":"isometric",
  "renderorder":"right-down",
  "tiledversion":"1.9.1",

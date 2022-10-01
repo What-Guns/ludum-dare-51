@@ -12,10 +12,6 @@ export default class Game {
         this.run = this.run.bind(this);
         this.actors.push(new Player(this));
         this.currentRoom = new Room(this);
-        this.currentRoom.addWall(10, 10, 10, 200);
-        this.currentRoom.addWall(400, 10, 10, 200);
-        this.currentRoom.addWall(10, 10, 390, 10);
-        this.currentRoom.addWall(10, 210, 390, 10);
     }
 
     run(timestamp: number) {

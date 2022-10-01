@@ -4,14 +4,14 @@ import Rect from './Rect.js';
 import { Controls, isControlPressed } from './KeyboardInput.js';
 
 export default class Player implements Actor {
-    position: [number, number] = [100, 100];
+    position: [number, number] = [900, 900];
     velocity: [number, number] = [0, 0];
-    width = 30;
-    height = 30;
+    width = 80;
+    height = 80;
     rect: Rect;
-    acceleration = 0.1;
+    acceleration = 1;
     deceleration = 0.92;
-    maximumVelocity = 1;
+    maximumVelocity = 10;
 
     constructor(readonly game: Game) {
         this.rect = new Rect(this.x, this.y, this.width, this.height);
@@ -81,7 +81,17 @@ export default class Player implements Actor {
 
     draw(ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = 'green';
-        ctx.fillRect(this.rect.x, this.rect.y, this.rect.w, this.rect.h);
+        ctx.fillRect(this.rect.x / 4, this.rect.y / 4, this.rect.w / 4, this.rect.h / 4);
+
+        ctx.fillStyle = 'red';
+        //const positionIsometric = [this.x - (this.y * (86 / 50)), this.y + (this.x / (86 / 50))];
+        /*const tileX = this.x / 40;
+        const tileY = this.y / 50;
+        const positionIsometric = [(tileX * 43) - (tileY * 43), (tileX * 25) + (tileY * 25)]*/
+        const isoX = (this.x * 1.74) + (this.y * -1.76) + 1878;
+        const isoY = (this.x) + (this.y) - 119;
+        //ctx.fillRect((positionIsometric[0] + (window as any).offsetX), (positionIsometric[1] + (window as any).offsetY), 50, 150);
+        ctx.fillRect(isoX / 4 - 25, isoY / 4 - 150, 50, 150);
     }
 
     get x() { return this.position[0] }
