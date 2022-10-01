@@ -129,12 +129,7 @@ class Tile {
     draw(ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = this.tileIndex == 1 ? 'blue' : 'red';
         ctx.fillRect(this.x * 12.5 + 165, this.y * 12.5 + 120, 5, 5);
-        this.links.forEach(l => {
-            ctx.beginPath()
-            ctx.moveTo(this.x * 12.5 + 165, this.y * 12.5 + 120)
-            ctx.lineTo(l.tile.x * 12.5 + 165, l.tile.y * 12.5 + 120)
-            ctx.stroke();
-        });
+        this.links.forEach(l => l.draw(ctx));
     }
 
     populateLinks(width: number) {
@@ -144,30 +139,38 @@ class Tile {
         const populateLink = this.populateLink.bind(this, pathing);
 
         if (y > 0) {
-            if (x > 0) populateLink((y - 1) * width + x - 1, 1.414)
-            populateLink((y - 1) * width + x, 1)
-            if (x < width - 1) populateLink((y - 1) * width + x + 1, 1.414)
+            if (x > 0) populateLink((y - 1) * width + x - 1, 1.414);
+            populateLink((y - 1) * width + x, 1);
+            if (x < width - 1) populateLink((y - 1) * width + x + 1, 1.414);
         }
 
-        if (x > 0) populateLink((y) * width + x - 1, 1)
-        if (x < width - 1) populateLink((y) * width + x + 1, 1)
+        if (x > 0) populateLink((y) * width + x - 1, 1);
+        if (x < width - 1) populateLink((y) * width + x + 1, 1);
 
         if (y < pathing.length / width - 1) {
-            if (x > 0) populateLink((y + 1) * width + x - 1, 1.414)
-            populateLink((y + 1) * width + x, 1)
-            if (x < width - 1) populateLink((y + 1) * width + x + 1, 1.414)
+            if (x > 0) populateLink((y + 1) * width + x - 1, 1.414);
+            populateLink((y + 1) * width + x, 1);
+            if (x < width - 1) populateLink((y + 1) * width + x + 1, 1.414);
         }
     }
 
     populateLink(pathing: Array<Tile>, index: number, weight: number) {
-        if (pathing[index]) this.links.push(new TileLink(pathing[index], weight));
+        if (pathing[index]) this.links.push(new TileLink(this, pathing[index], weight));
     }
 }
 
 class TileLink {
     constructor(
-        readonly tile: Tile,
+        readonly from: Tile,
+        readonly to: Tile,
         readonly weight: number,
     ) { }
+
+    draw(ctx: CanvasRenderingContext2D) {
+        ctx.beginPath()
+        ctx.moveTo(this.from.x * 12.5 + 165, this.from.y * 12.5 + 120)
+        ctx.lineTo(this.to.x * 12.5 + 165, this.to.y * 12.5 + 120)
+        ctx.stroke();
+    }
 }
 
