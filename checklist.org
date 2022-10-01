@@ -1,0 +1,29 @@
+** Requirements
+*** Design
+- [ ] Layout of the house
+- [ ] Positions of the player start, the keys, and the car
+- [ ] Safe spaces where the intruder can't see you at all
+*** Implementation
+- [-] 2d Top-Down engine
+  - [ ] Laid out using the Tiled editor
+  - [X] Character controlled with keyboard
+  - [ ] AI enemy
+    - [ ] Pathfinding
+    - [ ] Ability to target and move towards a point
+    - [ ] Ability to patrol randomly
+  - [ ] Clear visual indication of where the safe areas are
+  - [ ] Multiple rooms
+  - [ ] Audio and images
+*** Illustration
+- [ ] Tileset for a house
+  - [ ] Including alternate versions of the tiles illuminated by lightning
+  - [ ] Objects within the house
+- [ ] Player character
+  - [ ] 4-directional movement
+  - [ ] Possible crouching
+- [ ] Enemy
+  - [ ] 4-directional movement
+*** Audio
+- [ ] Thunder noise
+- [ ] Sting to indicate that you've been spotted
+- [ ] Background audio (either rain or a tense BGM)
