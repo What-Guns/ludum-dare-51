@@ -1,5 +1,8 @@
 import Game from './game.js';
-window.addEventListener('load', () => {
+import { load as loadImages } from './images.js';
+
+window.addEventListener('load', async () => {
+    await loadImages();
     const canvas: HTMLCanvasElement = document.querySelector('#canvas')!;
     const ctx = canvas.getContext('2d')!;
 

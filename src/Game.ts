@@ -1,6 +1,7 @@
 import Actor from './Actor.js';
 import Player from './Player.js';
 import Room from './Room.js';
+import images from './images.js';
 
 export default class Game {
     actors: Array<Actor> = [];
@@ -36,11 +37,9 @@ export default class Game {
         const ctx = this.ctx;
         const { canvas } = ctx;
 
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = 'white';
-        ctx.fillRect(200, 200, 200, 200);
+        ctx.drawImage(images('image0'), 0, 0, canvas.width, canvas.height)
 
         this.currentRoom?.draw(ctx);
         this.actors.forEach(actor => actor.draw(ctx));
