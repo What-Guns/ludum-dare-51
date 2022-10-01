@@ -19,6 +19,7 @@ export default class Room {
                 this.generateDoorsFromTiled(tiled);
                 this.generatePathingFromTiled(tiled);
             });
+        window.addEventListener('keyup', ev => { if (ev.key === 'p') this.findPath(5, 280) });
     }
 
     generatePathingFromTiled(tiled: any) {
@@ -28,7 +29,6 @@ export default class Room {
             (tile, index) => this.addPathingTile(tile, index % width, Math.floor(index / width))
         );
         this.pathing.forEach(tile => tile.populateLinks(width));
-        console.log(this.pathing);
     }
 
     generateWallsFromTiled(tiled: any) {
@@ -73,6 +73,39 @@ export default class Room {
 
     addPathingTile(tileIndex: number, x: number, y: number) {
         this.pathing.push(new Tile(this, tileIndex, x, y));
+    }
+
+    clearPathfinding() {
+        this.pathing.forEach(tile => { tile.isOnShortestPath = false; tile.visited = false; tile.from = undefined; tile.distance = Number.MAX_SAFE_INTEGER });
+    }
+
+    findPath(start: number, end: number) {
+        this.clearPathfinding();
+        let currentNode = this.pathing[start];
+        let candidateNodes: Array<Tile> = [];
+        currentNode.visited = true;
+        currentNode.distance = 0;
+        while (currentNode != this.pathing[end]) {
+            currentNode.links.filter(link => !link.to.visited).forEach(link => {
+                if (currentNode.distance + link.weight < link.to.distance) {
+                    link.to.distance = currentNode.distance + link.weight;
+                    link.to.from = currentNode;
+                }
+                link.to.distance = Math.min(currentNode.distance + link.weight, link.to.distance);
+                if (!candidateNodes.includes(link.to)) candidateNodes.push(link.to);
+            });
+            currentNode.visited = true;
+            candidateNodes.shift();
+            currentNode = candidateNodes.reduce((closestUnvisited, node) => !node.visited && node.distance < closestUnvisited.distance ? node : closestUnvisited);
+        }
+
+        const shortestPath = [];
+        while (currentNode != this.pathing[start]) {
+            shortestPath.push(currentNode);
+            currentNode.isOnShortestPath = true;
+            currentNode = currentNode.from!;
+        }
+        console.log(shortestPath);
     }
 }
 
@@ -119,6 +152,11 @@ class Wall {
 
 class Tile {
     links: Array<TileLink> = [];
+    visited = false;
+    distance = Number.MAX_SAFE_INTEGER;
+    isOnShortestPath = false;
+    from?: Tile;
+
     constructor(
         readonly room: Room,
         readonly tileIndex: number,
@@ -127,7 +165,7 @@ class Tile {
     ) { }
 
     draw(ctx: CanvasRenderingContext2D) {
-        ctx.fillStyle = this.tileIndex == 1 ? 'blue' : 'red';
+        ctx.fillStyle = this.isOnShortestPath ? 'yellow' : this.tileIndex == 1 ? 'blue' : 'red';
         ctx.fillRect(this.x * 12.5 + 165, this.y * 12.5 + 120, 5, 5);
         this.links.forEach(l => l.draw(ctx));
     }
@@ -155,7 +193,7 @@ class Tile {
     }
 
     populateLink(pathing: Array<Tile>, index: number, weight: number) {
-        if (pathing[index]) this.links.push(new TileLink(this, pathing[index], weight));
+        if (this.tileIndex == 1 && pathing[index] && pathing[index].tileIndex == 1) this.links.push(new TileLink(this, pathing[index], weight));
     }
 }
 
@@ -167,6 +205,7 @@ class TileLink {
     ) { }
 
     draw(ctx: CanvasRenderingContext2D) {
+        ctx.strokeStyle = this.from.isOnShortestPath ? 'yellow' : 'black';
         ctx.beginPath()
         ctx.moveTo(this.from.x * 12.5 + 165, this.from.y * 12.5 + 120)
         ctx.lineTo(this.to.x * 12.5 + 165, this.to.y * 12.5 + 120)
