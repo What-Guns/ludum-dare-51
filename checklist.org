@@ -4,8 +4,9 @@
 - [ ] Positions of the player start, the keys, and the car
 - [ ] Safe spaces where the intruder can't see you at all
 *** Implementation
-- [-] 2d Top-Down engine
-  - [ ] Laid out using the Tiled editor
+- [-] 2d Isometric engine
+  - [ ] Rooms possibly laid out using the Tiled editor
+  - [ ] Static backgrounds
   - [X] Character controlled with keyboard
   - [ ] AI enemy
     - [ ] Pathfinding
@@ -19,10 +20,10 @@
   - [ ] Including alternate versions of the tiles illuminated by lightning
   - [ ] Objects within the house
 - [ ] Player character
-  - [ ] 4-directional movement
+  - [ ] 8-directional movement
   - [ ] Possible crouching
 - [ ] Enemy
-  - [ ] 4-directional movement
+  - [ ] 8-directional movement
 *** Audio
 - [ ] Thunder noise
 - [ ] Sting to indicate that you've been spotted
