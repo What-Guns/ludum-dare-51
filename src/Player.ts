@@ -56,7 +56,7 @@ export default class Player implements Actor {
         }
         this.message = `Go to ${destination.name}`;
         if (this.pressedActionKey) {
-            console.log(activeDoors[0].props);
+            this.game.changeRoom(destinationString);
         }
     }
 
