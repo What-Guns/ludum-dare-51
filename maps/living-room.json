@@ -39,7 +39,7 @@
             1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
          "height":22,
          "id":1,
-         "name":"Tile Layer 1",
+         "name":"pathing",
          "offsetx":166,
          "offsety":550,
          "opacity":0.53,
