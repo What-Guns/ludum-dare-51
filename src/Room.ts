@@ -1,6 +1,5 @@
 import Game from './Game.js';
 import Rect from './Rect.js';
-import Player from './Player.js';
 
 export default class Room {
     walls: Array<Wall> = [];
@@ -31,8 +30,6 @@ class Wall {
     draw(ctx: CanvasRenderingContext2D) {
         ctx.fillStyle = 'pink';
 
-        const player: Player = this.room.game.actors[0] as Player;
-        if (this.rect.contains(...player.position)) ctx.fillStyle = 'red';
 
         const { x, y, w, h } = this.rect;
         ctx.fillRect(x, y, w, h);
