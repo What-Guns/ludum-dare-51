@@ -56,7 +56,9 @@ export default class Player implements Actor {
         }
         this.message = `Go to ${destination.name}`;
         if (this.pressedActionKey) {
-            this.game.changeRoom(destinationString);
+            const x = (activeDoors[0].props as Array<any>).find(p => p.name == "x").value;
+            const y = (activeDoors[0].props as Array<any>).find(p => p.name == "y").value;
+            this.game.changeRoom(destinationString, [x, y]);
         }
     }
 

@@ -11,6 +11,7 @@ export default class Game {
     timestamp = 0;
     state = GameState.RUNNING;
     destinationRoom?: Room;
+    destinationPosition?: [number, number];
     transitionTimer = 0;
 
     constructor(readonly ctx: CanvasRenderingContext2D) {
@@ -53,6 +54,9 @@ export default class Game {
         this.transitionTimer -= dt;
         if (this.transitionTimer < 0) {
             this.finishRoomTransition();
+        } else if (this.transitionTimer < TRANSITION_TIME / 2) {
+            const player = this.actors.find(actor => actor instanceof Player) as Player;
+            player.position = this.destinationPosition!;
         }
     }
 
@@ -81,10 +85,11 @@ export default class Game {
         }
     }
 
-    changeRoom(roomName: string) {
+    changeRoom(roomName: string, position: [number, number]) {
         this.destinationRoom = this.rooms.find(room => room.path == roomName);
         if (!this.destinationRoom) throw `Invalid destination ${roomName}`;
 
+        this.destinationPosition = position;
         this.transitionTimer = TRANSITION_TIME;
         this.state = GameState.ROOM_TRANSITION;
     }

@@ -156,12 +156,12 @@
                         {
                          "name":"x",
                          "type":"int",
-                         "value":0
+                         "value":692
                         }, 
                         {
                          "name":"y",
                          "type":"int",
-                         "value":0
+                         "value":1450
                         }],
                  "rotation":0,
                  "visible":true,
