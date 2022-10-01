@@ -1,15 +1,18 @@
 import Game from './Game.js';
 import Rect from './Rect.js';
+import images from './images.js';
 
 export default class Room {
     walls: Array<Wall> = [];
     doors: Array<Door> = [];
+    tiled: any;
 
-    constructor(readonly game: Game) {
+    constructor(readonly game: Game, readonly path: string) {
         this.generateWallsFromTiled = this.generateWallsFromTiled.bind(this);
         this.generateDoorsFromTiled = this.generateDoorsFromTiled.bind(this);
-        fetch('living-room.json').then(rsp => rsp.json())
+        fetch(`maps/${path}.json`).then(rsp => rsp.json())
             .then(tiled => {
+                this.tiled = tiled;
                 this.generateWallsFromTiled(tiled);
                 this.generateDoorsFromTiled(tiled);
             });
@@ -29,10 +32,22 @@ export default class Room {
     }
 
     draw(ctx: CanvasRenderingContext2D) {
+        if (!this.tiled) return;
+        ctx.drawImage(this.image, 0, 0, ctx.canvas.width, ctx.canvas.height);
+
         if ((window as any).debug) {
             this.walls.forEach(wall => wall.draw(ctx));
             this.doors.forEach(door => door.draw(ctx));
         }
+    }
+
+    get image() {
+        const imageName = (this.tiled.properties as Array<any>).find(p => p.name == "imageName").value;
+        return images(imageName);
+    }
+
+    get name() {
+        return (this.tiled.properties as Array<any>).find(p => p.name == "name").value;
     }
 
     addWall(x: number, y: number, w: number, h: number) {

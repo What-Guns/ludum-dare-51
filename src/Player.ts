@@ -48,8 +48,13 @@ export default class Player implements Actor {
         const doors = this.game.currentRoom?.doors || [];
         const activeDoors = doors.filter(door => door.rect.contains(this.rect.center[0], this.rect.center[1]));
         if (activeDoors.length == 0) return;
-        const destination = (activeDoors[0].props as Array<any>).find(p => p.name == "destination").value;
-        this.message = `Go to ${destination}`;
+        const destinationString = (activeDoors[0].props as Array<any>).find(p => p.name == "destination").value;
+        const destination = this.game.rooms.find(room => room.path == destinationString);
+        if (!destination) {
+            console.error(`Invalid destination ${destinationString}`);
+            return;
+        }
+        this.message = `Go to ${destination.name}`;
         if (this.pressedActionKey) {
             console.log(activeDoors[0].props);
         }

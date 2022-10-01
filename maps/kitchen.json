@@ -1,0 +1,231 @@
+{ "compressionlevel":-1,
+ "height":22,
+ "infinite":false,
+ "layers":[
+        {
+         "id":2,
+         "image":"..\/images\/withgrid.jpeg",
+         "name":"Image Layer 1",
+         "offsetx":17.6,
+         "offsety":24.7279920870429,
+         "opacity":1,
+         "type":"imagelayer",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+            2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+            2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+            2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+            2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+            2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+            2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+            2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+            2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2,
+            2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+            1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+         "height":22,
+         "id":1,
+         "name":"Tile Layer 1",
+         "offsetx":166,
+         "offsety":550,
+         "opacity":0.53,
+         "type":"tilelayer",
+         "visible":false,
+         "width":18,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":3,
+         "name":"walls",
+         "objects":[
+                {
+                 "class":"",
+                 "height":396.802325581396,
+                 "id":1,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":93.2308970099667,
+                 "x":999.169435215947,
+                 "y":757.599667774086
+                }, 
+                {
+                 "class":"",
+                 "height":843.521594684385,
+                 "id":2,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":97.0930232558142,
+                 "x":648.504983388704,
+                 "y":454.401993355482
+                }, 
+                {
+                 "class":"",
+                 "height":446.511627906977,
+                 "id":3,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":39.3687707641195,
+                 "x":1500.87209302326,
+                 "y":802.616279069768
+                }, 
+                {
+                 "class":"",
+                 "height":1310.79734219269,
+                 "id":5,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":110.63122923588,
+                 "x":541.445182724253,
+                 "y":347.840531561462
+                }, 
+                {
+                 "class":"",
+                 "height":98.0066445182726,
+                 "id":6,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":1098.00664451827,
+                 "x":542.81561461794,
+                 "y":359.177740863787
+                }, 
+                {
+                 "class":"",
+                 "height":1342.2342192691,
+                 "id":8,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":102.948504983389,
+                 "x":1542.48338870432,
+                 "y":361.710963455149
+                }, 
+                {
+                 "class":"",
+                 "height":107.308970099667,
+                 "id":9,
+                 "name":"",
+                 "rotation":0,
+                 "visible":true,
+                 "width":1099.83388704319,
+                 "x":546.262458471761,
+                 "y":1546.59468438538
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":false,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":5,
+         "name":"doors",
+         "objects":[
+                {
+                 "class":"",
+                 "height":66.7358803986711,
+                 "id":11,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"kitchen"
+                        }, 
+                        {
+                         "name":"x",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"y",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":197.549833887043,
+                 "x":806.229235880399,
+                 "y":465.199335548173
+                }, 
+                {
+                 "class":"",
+                 "height":91.0714285714287,
+                 "id":12,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"destination",
+                         "type":"string",
+                         "value":"upstairs"
+                        }, 
+                        {
+                         "name":"x",
+                         "type":"int",
+                         "value":0
+                        }, 
+                        {
+                         "name":"y",
+                         "type":"int",
+                         "value":0
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":91.0714285714287,
+                 "x":656.104651162791,
+                 "y":1311.75249169435
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":6,
+ "nextobjectid":15,
+ "orientation":"isometric",
+ "properties":[
+        {
+         "name":"imageName",
+         "type":"string",
+         "value":"image0"
+        }, 
+        {
+         "name":"name",
+         "type":"string",
+         "value":"Kitchen"
+        }],
+ "renderorder":"right-down",
+ "tiledversion":"1.9.1",
+ "tileheight":50,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"..\/walkable.tsj"
+        }],
+ "tilewidth":86,
+ "type":"map",
+ "version":"1.9",
+ "width":18
+}
