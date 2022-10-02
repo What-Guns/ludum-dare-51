@@ -87,10 +87,10 @@ export default class Player implements Actor {
 
     processInput() {
         this.pressedActionKey = false;
-        if (isControlPressed(Controls.RIGHT)) { this.velocity[0] += this.acceleration; }
-        if (isControlPressed(Controls.LEFT)) { this.velocity[0] -= this.acceleration; }
-        if (isControlPressed(Controls.UP)) { this.velocity[1] -= this.acceleration; }
-        if (isControlPressed(Controls.DOWN)) { this.velocity[1] += this.acceleration; }
+        if (isControlPressed(Controls.RIGHT)) { this.velocity[0] += this.acceleration; this.velocity[1] -= this.acceleration; }
+        if (isControlPressed(Controls.LEFT)) { this.velocity[0] -= this.acceleration; this.velocity[1] += this.acceleration; }
+        if (isControlPressed(Controls.UP)) { this.velocity[0] -= this.acceleration; this.velocity[1] -= this.acceleration; }
+        if (isControlPressed(Controls.DOWN)) { this.velocity[0] += this.acceleration; this.velocity[1] += this.acceleration; }
         if (isControlPressed(Controls.ACTION)) {
             if (!this.holdingActionKey) this.pressedActionKey = true;
             this.holdingActionKey = true;
