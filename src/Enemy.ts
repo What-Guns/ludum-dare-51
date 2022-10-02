@@ -40,7 +40,6 @@ export default class Enemy implements Actor {
         const dx = (this.x - 660) / 50 - path[0].x;
         const dy = (this.y - 480) / 50 - path[0].y;
         const direction = Math.atan2(-dy, dx);
-        console.log(direction)
         this.velocity = [-Math.cos(direction) * this.speed, Math.sin(direction) * this.speed];
         const distanceSquared = (dx * dx) + (dy * dy);
         if (distanceSquared < 1) path.shift();

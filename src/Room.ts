@@ -105,7 +105,6 @@ export default class Room {
             currentNode.isOnShortestPath = true;
             currentNode = currentNode.from!;
         }
-        console.log(shortestPath);
         return shortestPath;
     }
 }

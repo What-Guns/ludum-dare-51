@@ -88,7 +88,6 @@ export default class Game {
             ctx.fillStyle = 'black';
             const alpha = ctx.globalAlpha;
             const opacity = 1 - (this.transitionTimer - (TRANSITION_TIME / 2)) / (TRANSITION_TIME / 2)
-            console.log(opacity)
             ctx.globalAlpha = opacity
             ctx.fillRect(0, 0, canvas.width, canvas.height);
             ctx.globalAlpha = alpha;
