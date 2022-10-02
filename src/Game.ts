@@ -4,6 +4,9 @@ import Room from './Room.js';
 import Enemy from './Enemy.js';
 
 const TRANSITION_TIME = 600;
+const THUNDER_TIME = 10000;
+// If this variable is set to ANYTHING ELSE,
+// the game no longer fits the theme!
 
 export default class Game {
     actors: Array<Actor> = [];
@@ -14,6 +17,7 @@ export default class Game {
     destinationRoom?: Room;
     destinationPosition?: [number, number];
     transitionTimer = 0;
+    thunderTimer = THUNDER_TIME;
 
     constructor(readonly ctx: CanvasRenderingContext2D) {
         this.run = this.run.bind(this);
@@ -71,7 +75,20 @@ export default class Game {
     }
 
     tick(dt: number) {
+        this.tickThunder(dt);
         this.actors.forEach(actor => actor.tick(dt));
+    }
+
+    tickThunder(dt: number) {
+        this.thunderTimer -= dt;
+        if (this.thunderTimer < 0) {
+            this.thunderTimer += THUNDER_TIME;
+            this.thunderclap();
+        }
+    }
+
+    thunderclap() {
+        console.log('Boom!');
     }
 
     draw() {
