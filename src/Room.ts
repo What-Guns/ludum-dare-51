@@ -2,7 +2,7 @@ import Game from './Game.js';
 import Rect from './Rect.js';
 import images from './images.js';
 import maps from './maps.js';
-import TiledMap from './Tiled.js';
+import TiledMap, { TiledTileLayer, TiledObjectLayer, TiledProperty } from './Tiled.js';
 
 export default class Room {
     walls: Array<Wall> = [];
@@ -21,8 +21,8 @@ export default class Room {
         this.generatePathingFromTiled(this.tiled);
     }
 
-    generatePathingFromTiled(tiled: any) {
-        const pathingLayer = (tiled.layers as Array<any>).find(layer => layer.name === "pathing");
+    generatePathingFromTiled(tiled: TiledMap) {
+        const pathingLayer = tiled.layers.find(layer => layer.name === "pathing") as TiledTileLayer;
         const width = pathingLayer.width;
         this.tileWidth = width;
         (pathingLayer.data as Array<number>).forEach(
@@ -31,15 +31,15 @@ export default class Room {
         this.pathing.forEach(tile => tile.populateLinks(width));
     }
 
-    generateWallsFromTiled(tiled: any) {
-        const wallLayer = (tiled.layers as Array<any>).find(layer => layer.name === "walls");
-        const walls: Array<any> = wallLayer.objects;
+    generateWallsFromTiled(tiled: TiledMap) {
+        const wallLayer = tiled.layers.find(layer => layer.name === "walls") as TiledObjectLayer;
+        const walls = wallLayer.objects;
         walls.forEach(w => this.addWall(w.x, w.y, w.width, w.height));
     }
 
-    generateDoorsFromTiled(tiled: any) {
-        const doorLayer = (tiled.layers as Array<any>).find(layer => layer.name === "doors");
-        const doors: Array<any> = doorLayer.objects;
+    generateDoorsFromTiled(tiled: TiledMap) {
+        const doorLayer = tiled.layers.find(layer => layer.name === "doors") as TiledObjectLayer;
+        const doors = doorLayer.objects;
         doors.forEach(d => this.addDoor(d.x, d.y, d.width, d.height, d.properties));
     }
 
@@ -55,19 +55,19 @@ export default class Room {
     }
 
     get image() {
-        const imageName = (this.tiled.properties as Array<any>).find(p => p.name == "imageName").value;
+        const imageName = this.tiled.properties.find(p => p.name == "imageName")!.value as string;
         return images(imageName);
     }
 
     get name() {
-        return (this.tiled.properties as Array<any>).find(p => p.name == "name").value;
+        return this.tiled.properties.find(p => p.name == "name")!.value as string;
     }
 
     addWall(x: number, y: number, w: number, h: number) {
         this.walls.push(new Wall(this, x, y, w, h));
     }
 
-    addDoor(x: number, y: number, w: number, h: number, props: any) {
+    addDoor(x: number, y: number, w: number, h: number, props: Array<TiledProperty>) {
         this.doors.push(new Door(this, x, y, w, h, props));
     }
 
@@ -118,7 +118,7 @@ class Door {
         y: number,
         w: number,
         h: number,
-        readonly props: any,
+        readonly props: Array<TiledProperty>,
     ) {
         this.rect = new Rect(x, y, w, h);
     }

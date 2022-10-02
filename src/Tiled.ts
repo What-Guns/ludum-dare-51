@@ -42,3 +42,8 @@ type TiledNumberProperty = {
 }
 
 export default TiledMap
+export {
+    TiledTileLayer,
+    TiledObjectLayer,
+    TiledProperty,
+};
