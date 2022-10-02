@@ -29,7 +29,7 @@ export default class Game {
     findPathFromEnemyToPlayer() {
         const player = this.actors.find(actor => actor instanceof Player) as Player;
         const enemy = this.actors.find(actor => actor instanceof Enemy) as Enemy;
-        this.currentRoom?.findPath(player.closestTile(), enemy.closestTile());
+        enemy.pathToPlayer = this.currentRoom?.findPath(player.closestTile(), enemy.closestTile());
     }
 
     run(timestamp: number) {

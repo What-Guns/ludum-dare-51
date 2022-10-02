@@ -215,3 +215,4 @@ class TileLink {
     }
 }
 
+export { Tile }

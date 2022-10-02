@@ -1,6 +1,7 @@
 import Actor from './Actor.js';
 import Game from './Game.js';
 import Rect from './Rect.js';
+import { Tile } from './Room.js';
 
 export default class Enemy implements Actor {
     position: [number, number] = [1100, 700];
@@ -8,6 +9,8 @@ export default class Enemy implements Actor {
     rect: Rect;
     width = 80;
     height = 80;
+
+    pathToPlayer?: Array<Tile> = [];
 
     constructor(readonly game: Game) {
         this.rect = new Rect(this.x, this.y, this.width, this.height);
@@ -30,7 +33,23 @@ export default class Enemy implements Actor {
         }
     }
 
-    tick(_dt: number) { }
+    speed = .1;
+    tick(dt: number) {
+        const path = this.pathToPlayer;
+        if (!path || path.length == 0) return;
+        const dx = (this.x - 660) / 50 - path[0].x;
+        const dy = (this.y - 480) / 50 - path[0].y;
+        const direction = Math.atan2(-dy, dx);
+        console.log(direction)
+        this.velocity = [-Math.cos(direction) * this.speed, Math.sin(direction) * this.speed];
+        const distanceSquared = (dx * dx) + (dy * dy);
+        if (distanceSquared < 1) path.shift();
+
+        this.position[0] += this.velocity[0] * dt;
+        this.position[1] += this.velocity[1] * dt;
+        this.rect.x = this.x - (this.width / 2);
+        this.rect.y = this.y - (this.height / 2);
+    }
 
     closestTile() {
         const tileX = Math.round((this.x - 660) / 50);
