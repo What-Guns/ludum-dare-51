@@ -1,6 +1,7 @@
 import Actor from './Actor.js';
 import Player from './Player.js';
 import Room from './Room.js';
+import Enemy from './Enemy.js';
 
 const TRANSITION_TIME = 600;
 
@@ -17,9 +18,18 @@ export default class Game {
     constructor(readonly ctx: CanvasRenderingContext2D) {
         this.run = this.run.bind(this);
         this.actors.push(new Player(this));
+        this.actors.push(new Enemy(this));
         this.currentRoom = new Room(this, 'living-room');
         this.rooms.push(this.currentRoom);
         this.rooms.push(new Room(this, 'kitchen'));
+        this.findPathFromEnemyToPlayer = this.findPathFromEnemyToPlayer.bind(this);
+        window.addEventListener('keyup', ev => { if (ev.key === 'p') this.findPathFromEnemyToPlayer() });
+    }
+
+    findPathFromEnemyToPlayer() {
+        const player = this.actors.find(actor => actor instanceof Player) as Player;
+        const enemy = this.actors.find(actor => actor instanceof Enemy) as Enemy;
+        this.currentRoom?.findPath(player.closestTile(), enemy.closestTile());
     }
 
     run(timestamp: number) {

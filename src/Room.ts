@@ -6,6 +6,7 @@ export default class Room {
     walls: Array<Wall> = [];
     doors: Array<Door> = [];
     pathing: Array<Tile> = [];
+    tileWidth = 1;
     tiled: any;
 
     constructor(readonly game: Game, readonly path: string) {
@@ -19,12 +20,12 @@ export default class Room {
                 this.generateDoorsFromTiled(tiled);
                 this.generatePathingFromTiled(tiled);
             });
-        window.addEventListener('keyup', ev => { if (ev.key === 'p') this.findPath(5, 280) });
     }
 
     generatePathingFromTiled(tiled: any) {
         const pathingLayer = (tiled.layers as Array<any>).find(layer => layer.name === "pathing");
         const width = pathingLayer.width;
+        this.tileWidth = width;
         (pathingLayer.data as Array<number>).forEach(
             (tile, index) => this.addPathingTile(tile, index % width, Math.floor(index / width))
         );
@@ -106,6 +107,7 @@ export default class Room {
             currentNode = currentNode.from!;
         }
         console.log(shortestPath);
+        return shortestPath;
     }
 }
 

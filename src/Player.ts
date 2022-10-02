@@ -108,7 +108,7 @@ export default class Player implements Actor {
 
     draw(ctx: CanvasRenderingContext2D) {
 
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = 'green';
         //const positionIsometric = [this.x - (this.y * (86 / 50)), this.y + (this.x / (86 / 50))];
         /*const tileX = this.x / 40;
         const tileY = this.y / 50;
@@ -127,6 +127,13 @@ export default class Player implements Actor {
             ctx.fillRect(this.rect.x / 4, this.rect.y / 4, this.rect.w / 4, this.rect.h / 4);
         }
     }
+
+    closestTile() {
+        const tileX = Math.round((this.x - 660) / 50);
+        const tileY = Math.round((this.y - 480) / 50);
+        return this.game.currentRoom?.pathing.findIndex(t => t.x == tileX && t.y == tileY) || 0;
+    }
+
 
     get x() { return this.position[0] }
     get y() { return this.position[1] }
