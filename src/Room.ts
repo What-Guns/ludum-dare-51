@@ -8,6 +8,7 @@ export default class Room {
     walls: Array<Wall> = [];
     doors: Array<Door> = [];
     pathing: Array<Tile> = [];
+    keyZones: Array<KeyZone> = [];
     tileWidth = 1;
     tiled: TiledMap;
 
@@ -15,10 +16,23 @@ export default class Room {
         this.generateWallsFromTiled = this.generateWallsFromTiled.bind(this);
         this.generateDoorsFromTiled = this.generateDoorsFromTiled.bind(this);
         this.generatePathingFromTiled = this.generatePathingFromTiled.bind(this);
+        this.generateKeyZonesFromTiled = this.generateKeyZonesFromTiled.bind(this);
         this.tiled = maps(path);
         this.generateWallsFromTiled(this.tiled);
         this.generateDoorsFromTiled(this.tiled);
         this.generatePathingFromTiled(this.tiled);
+        this.generateKeyZonesFromTiled(this.tiled);
+    }
+
+    generateKeyZonesFromTiled(tiled: TiledMap) {
+        const keyLayer = tiled.layers.find(layer => layer.name === "keys") as TiledObjectLayer;
+        const keyZones = keyLayer.objects;
+        keyZones.forEach(kz => this.addKeyZone(kz.id, kz.x, kz.y, kz.width, kz.height, kz.properties));
+    }
+
+    addKeyZone(id: number, x: number, y: number, w: number, h: number, props: Array<TiledProperty>) {
+        this.keyZones.push(new KeyZone(this, id, x, y, w, h, props));
+
     }
 
     generatePathingFromTiled(tiled: TiledMap) {
@@ -48,6 +62,7 @@ export default class Room {
         ctx.drawImage(this.image, 0, 0, ctx.canvas.width, ctx.canvas.height);
 
         if ((window as any).debug) {
+            this.keyZones.forEach(kz => kz.draw(ctx));
             this.walls.forEach(wall => wall.draw(ctx));
             this.doors.forEach(door => door.draw(ctx));
             this.pathing.forEach(tile => tile.draw(ctx));
@@ -212,5 +227,33 @@ class TileLink {
         ctx.stroke();
     }
 }
+
+class KeyZone {
+    rect: Rect;
+    searched = false;
+    constructor(
+        readonly room: Room,
+        readonly id: number,
+        x: number,
+        y: number,
+        w: number,
+        h: number,
+        readonly props: Array<TiledProperty>,
+    ) {
+        this.rect = new Rect(x, y, w, h);
+    }
+
+    get message() {
+        return this.props.find(p => p.name == "message")!.value as string;
+    }
+
+    draw(ctx: CanvasRenderingContext2D) {
+        ctx.fillStyle = 'lightblue';
+
+        const { x, y, w, h } = this.rect;
+        ctx.fillRect(x / 4, y / 4, w / 4, h / 4);
+    }
+}
+
 
 export { Tile }

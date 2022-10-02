@@ -27,6 +27,7 @@ export default class Player implements Actor {
         this.updatePosition();
         this.checkForWallCollisions();
         this.checkForDoors();
+        this.checkForKeyZones();
         this.decelerate();
     }
 
@@ -59,6 +60,18 @@ export default class Player implements Actor {
             const x = activeDoors[0].props.find(p => p.name == "x")!.value as number;
             const y = activeDoors[0].props.find(p => p.name == "y")!.value as number;
             this.game.changeRoom(destinationString, [x, y]);
+        }
+    }
+
+    checkForKeyZones() {
+        const keyZones = this.game.currentRoom?.keyZones || [];
+        const activeKeyZone = keyZones.find(keyZone => keyZone.rect.contains(this.rect.center[0], this.rect.center[1]));
+        if (!activeKeyZone || activeKeyZone.searched) return;
+
+        this.message = activeKeyZone.message;
+        if (this.pressedActionKey) {
+            this.game.searchForKeys(activeKeyZone.id)
+            activeKeyZone.searched = true;
         }
     }
 

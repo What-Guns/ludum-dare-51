@@ -133,6 +133,51 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
+         "visible":false,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":6,
+         "name":"keys",
+         "objects":[
+                {
+                 "class":"",
+                 "height":213.538205980066,
+                 "id":15,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"Check the couch for keys"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":246.755235142423,
+                 "x":939.53488372093,
+                 "y":1028.32225913621
+                }, 
+                {
+                 "class":"",
+                 "height":189.659468438538,
+                 "id":16,
+                 "name":"",
+                 "properties":[
+                        {
+                         "name":"message",
+                         "type":"string",
+                         "value":"Check the couch for keys"
+                        }],
+                 "rotation":0,
+                 "visible":true,
+                 "width":291.982551122606,
+                 "x":905.647840531561,
+                 "y":662.209302325581
+                }],
+         "opacity":1,
+         "type":"objectgroup",
          "visible":true,
          "x":0,
          "y":0
@@ -198,12 +243,12 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
- "nextlayerid":6,
- "nextobjectid":15,
+ "nextlayerid":7,
+ "nextobjectid":17,
  "orientation":"isometric",
  "properties":[
         {

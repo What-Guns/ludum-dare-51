@@ -31,9 +31,7 @@ export default class Game {
     }
 
     findPathFromEnemyToPlayer() {
-        const player = this.actors.find(actor => actor instanceof Player) as Player;
-        const enemy = this.actors.find(actor => actor instanceof Enemy) as Enemy;
-        enemy.pathToPlayer = this.currentRoom?.findPath(player.closestTile(), enemy.closestTile());
+        this.enemy.pathToPlayer = this.currentRoom?.findPath(this.player.closestTile(), this.enemy.closestTile());
     }
 
     run(timestamp: number) {
@@ -91,6 +89,10 @@ export default class Game {
         console.log('Boom!');
     }
 
+    searchForKeys(id: number) {
+        console.log("Searching for keys in " + id);
+    }
+
     draw() {
         const ctx = this.ctx;
         const { canvas } = ctx;
@@ -126,6 +128,12 @@ export default class Game {
         this.transitionTimer = 0;
     }
 
+    get player() {
+        return this.actors.find(actor => actor instanceof Player) as Player;
+    }
+    get enemy() {
+        return this.actors.find(actor => actor instanceof Enemy) as Enemy;
+    }
 }
 
 enum GameState {
