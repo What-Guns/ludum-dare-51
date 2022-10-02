@@ -1,25 +1,24 @@
 import Game from './Game.js';
 import Rect from './Rect.js';
 import images from './images.js';
+import maps from './maps.js';
+import TiledMap from './Tiled.js';
 
 export default class Room {
     walls: Array<Wall> = [];
     doors: Array<Door> = [];
     pathing: Array<Tile> = [];
     tileWidth = 1;
-    tiled: any;
+    tiled: TiledMap;
 
     constructor(readonly game: Game, readonly path: string) {
         this.generateWallsFromTiled = this.generateWallsFromTiled.bind(this);
         this.generateDoorsFromTiled = this.generateDoorsFromTiled.bind(this);
         this.generatePathingFromTiled = this.generatePathingFromTiled.bind(this);
-        fetch(`maps/${path}.json`).then(rsp => rsp.json())
-            .then(tiled => {
-                this.tiled = tiled;
-                this.generateWallsFromTiled(tiled);
-                this.generateDoorsFromTiled(tiled);
-                this.generatePathingFromTiled(tiled);
-            });
+        this.tiled = maps(path);
+        this.generateWallsFromTiled(this.tiled);
+        this.generateDoorsFromTiled(this.tiled);
+        this.generatePathingFromTiled(this.tiled);
     }
 
     generatePathingFromTiled(tiled: any) {

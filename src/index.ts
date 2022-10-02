@@ -1,8 +1,10 @@
 import Game from './game.js';
 import { load as loadImages } from './images.js';
+import { load as loadMaps } from './maps.js';
 
 window.addEventListener('load', async () => {
     await loadImages();
+    await loadMaps();
     const canvas: HTMLCanvasElement = document.querySelector('#canvas')!;
     const ctx = canvas.getContext('2d')!;
 
