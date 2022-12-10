@@ -1,3 +1,18 @@
 {
-  "image0": "images/image0.png"
+  "armoire": "images/armoire.png",
+  "bathroom_bg": "images/bathroom_bg.png",
+  "bed2": "images/bed2.png",
+  "bedroom1_bg": "images/bedroom1_bg.png",
+  "bedroom2_bg": "images/bedroom2_bg.png",
+  "couch": "images/couch.png",
+  "counter": "images/counter.png",
+  "desk": "images/desk.png",
+  "entry": "images/entry.png",
+  "image0": "images/image0.png",
+  "kitchen_bg": "images/kitchen_bg.png",
+  "livingroom_bg": "images/livingroom_bg.png",
+  "permit": "images/permit.png",
+  "toilet_shower": "images/toilet_shower.png",
+  "tv": "images/tv.png",
+  "withgrid": "images/withgrid.jpeg"
 }

@@ -69,6 +69,7 @@ export default class Game {
         } else if (this.transitionTimer < TRANSITION_TIME / 2) {
             const player = this.actors.find(actor => actor instanceof Player) as Player;
             player.position = this.destinationPosition!;
+            this.currentRoom = this.destinationRoom!;
         }
     }
 

@@ -10,7 +10,12 @@ export default class Room {
     pathing: Array<Tile> = [];
     keyZones: Array<KeyZone> = [];
     tileWidth = 1;
+    tileHeight = 1;
+    xOffset = 0;
+    yOffset = 0;
     tiled: TiledMap;
+    mouseX = 0;
+    mouseY = 0;
 
     constructor(readonly game: Game, readonly path: string) {
         this.generateWallsFromTiled = this.generateWallsFromTiled.bind(this);
@@ -18,10 +23,18 @@ export default class Room {
         this.generatePathingFromTiled = this.generatePathingFromTiled.bind(this);
         this.generateKeyZonesFromTiled = this.generateKeyZonesFromTiled.bind(this);
         this.tiled = maps(path);
+        const mapProperties = this.tiled.properties;
+
+        this.xOffset = mapProperties.find(p => p.name == "xOffset")!.value as number;
+        this.yOffset = mapProperties.find(p => p.name == "yOffset")!.value as number;
         this.generateWallsFromTiled(this.tiled);
         this.generateDoorsFromTiled(this.tiled);
         this.generatePathingFromTiled(this.tiled);
         this.generateKeyZonesFromTiled(this.tiled);
+        window.addEventListener('mousemove', ev => {
+            this.mouseX = (ev.clientX - DEBUG_OFFSET) * 1 / 12;
+            this.mouseY = (ev.clientY - DEBUG_OFFSET) * 1 / 12;
+        });
     }
 
     generateKeyZonesFromTiled(tiled: TiledMap) {
@@ -38,7 +51,9 @@ export default class Room {
     generatePathingFromTiled(tiled: TiledMap) {
         const pathingLayer = tiled.layers.find(layer => layer.name === "pathing") as TiledTileLayer;
         const width = pathingLayer.width;
+        const height = pathingLayer.height;
         this.tileWidth = width;
+        this.tileHeight = height;
         (pathingLayer.data as Array<number>).forEach(
             (tile, index) => this.addPathingTile(tile, index % width, Math.floor(index / width))
         );
@@ -59,14 +74,24 @@ export default class Room {
 
     draw(ctx: CanvasRenderingContext2D) {
         if (!this.tiled) return;
-        ctx.drawImage(this.image, 0, 0, ctx.canvas.width, ctx.canvas.height);
+        const xScale = ctx.canvas.width / this.image.width;
+        const yScale = ctx.canvas.height / this.image.height;
+        const scale = Math.min(xScale, yScale);
+        ctx.drawImage(this.image, 0, 0, this.image.width * scale, this.image.height * scale);
 
         if ((window as any).debug) {
             this.keyZones.forEach(kz => kz.draw(ctx));
             this.walls.forEach(wall => wall.draw(ctx));
             this.doors.forEach(door => door.draw(ctx));
             this.pathing.forEach(tile => tile.draw(ctx));
+            const tileWidth = 99;
+            const tileHeight = 57;
+            const x = (this.xOffset + ((this.mouseX - this.mouseY) * .5 * tileWidth)) * scale
+            const y = (this.yOffset + ((this.mouseX + this.mouseY) * .5 * tileHeight)) * scale
+            ctx.fillStyle = 'white'
+            ctx.fillRect(x, y, 5, 5);
         }
+
     }
 
     get image() {
@@ -141,7 +166,7 @@ class Door {
         ctx.fillStyle = 'orange';
 
         const { x, y, w, h } = this.rect;
-        ctx.fillRect(x / 4, y / 4, w / 4, h / 4);
+        fillRectDebug(ctx, x, y, w, h);
     }
 }
 
@@ -161,7 +186,7 @@ class Wall {
         ctx.fillStyle = 'pink';
 
         const { x, y, w, h } = this.rect;
-        ctx.fillRect(x / 4, y / 4, w / 4, h / 4);
+        fillRectDebug(ctx, x, y, w, h);
     }
 }
 
@@ -233,8 +258,7 @@ class KeyZone {
     searched = false;
     constructor(
         readonly room: Room,
-        readonly id: number,
-        x: number,
+        readonly id: number, x: number,
         y: number,
         w: number,
         h: number,
@@ -251,9 +275,14 @@ class KeyZone {
         ctx.fillStyle = 'lightblue';
 
         const { x, y, w, h } = this.rect;
-        ctx.fillRect(x / 4, y / 4, w / 4, h / 4);
+        fillRectDebug(ctx, x, y, w, h);
     }
 }
 
+const DEBUG_SCALE = 1 / 5;
+const DEBUG_OFFSET = 50;
+function fillRectDebug(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number) {
+    ctx.fillRect((x * DEBUG_SCALE) + DEBUG_OFFSET, (y * DEBUG_SCALE) + DEBUG_OFFSET, w * DEBUG_SCALE, h * DEBUG_SCALE);
+}
 
 export { Tile }
