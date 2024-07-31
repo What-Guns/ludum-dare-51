@@ -1,4 +1,4 @@
-import Game from './game.js';
+import Game from './Game.js';
 import { load as loadImages } from './images.js';
 import { load as loadMaps } from './maps.js';
 
